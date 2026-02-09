@@ -1,0 +1,94 @@
+import { createBrowserRouter, Navigate } from "react-router";
+
+import { ShopLayout } from "./shop/layouts/ShopLayout";
+import { Homepage } from "./shop/pages/home/Homepage";
+import { ProductPage } from "./shop/pages/product/ProductPage";
+import { GenderPage } from "./shop/pages/gender/GenderPage";
+import { LoginPage } from "./auth/pages/login/LoginPage";
+import { RegisterPage } from "./auth/pages/register/RegisterPage";
+import { DashboardPage } from "./admin/pages/dashboard/DashboardPage";
+import { AdminProductsPage } from "./admin/pages/products/AdminProductsPage";
+import { AdminProductPage } from "./admin/pages/product/AdminProductPage";
+import { lazy } from "react";
+import { AdminRoute, NotAuthenticatedRoute } from "./components/routes/ProtectedRoutes";
+
+
+const AuthLayout = lazy(() => import("./auth/layouts/AuthLayout"));
+const AdminLayouts = lazy(() => import("./admin/layouts/AdminLayouts"));
+
+
+// This lets me create the routes of the whole application
+export const appRouter = createBrowserRouter([
+    // Main or public routes (customer facing)
+    {
+        path: '/',
+        element: <ShopLayout />,
+        children: [
+            {
+                index: true,
+                element: <Homepage />
+            },
+            {
+                path: 'product/:idSlug',
+                element: <ProductPage />
+            },
+            {
+                path: 'gender/:gender',
+                element: <GenderPage />
+            }
+        ]
+    },
+
+    // AuthRoutes
+    {
+        // Parent routes goes with / character
+        path: '/auth',
+        element:   (<NotAuthenticatedRoute>
+                    <AuthLayout />
+                    </NotAuthenticatedRoute>),
+        children: [
+            {
+                index: true,
+                element: <Navigate to="/auth/login" />
+            },
+            {
+                // Children routes does not go with / character
+                path: 'login',
+                element: <LoginPage />
+            },
+            {
+                path: 'register',
+                element: <RegisterPage />
+            }
+        ]
+    },
+
+    // Admin routes
+    {
+        path: '/admin',
+        element: <AdminRoute>
+            <AdminLayouts />
+        </AdminRoute>,
+        children: [
+            {
+                index: true,
+                element: <DashboardPage />
+            },
+            {
+                path: 'products',
+                element: <AdminProductsPage />
+            },
+            {
+                path: 'products/:id',
+                element: <AdminProductPage />
+            }
+        ]
+    },
+
+    // This is a default redirect to the start of the application in case of unknown URLs
+    {
+        path: '*',
+        element: <Navigate to="/" />
+    }
+])
+
