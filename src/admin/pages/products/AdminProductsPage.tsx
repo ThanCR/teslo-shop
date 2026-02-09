@@ -1,4 +1,4 @@
-import { Link, useSearchParams } from "react-router"
+import { Link } from "react-router"
 import { Table, TableHeader, TableRow, TableHead, TableBody, TableCell } from "../../../components/ui/table"
 import { AdminTitle } from "../../components/AdminTitle"
 import { CustomPagination } from "../../../components/custom/CustomPagination"

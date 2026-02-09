@@ -13,7 +13,7 @@ export const LoginPage = () => {
 
   const navigate = useNavigate();
   const { login } = useAuthStore();
-  const [isPosting, setIsPosting] = useState(false)
+  const [_, setIsPosting] = useState(false)
 
   const handleLogin = async (event: FormEvent<HTMLFormElement>) => {
     setIsPosting(true);
