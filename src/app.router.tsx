@@ -1,4 +1,4 @@
-import { createBrowserRouter, Navigate } from "react-router";
+import { createBrowserRouter, createHashRouter, Navigate } from "react-router";
 
 import { ShopLayout } from "./shop/layouts/ShopLayout";
 import { Homepage } from "./shop/pages/home/Homepage";
@@ -18,7 +18,7 @@ const AdminLayouts = lazy(() => import("./admin/layouts/AdminLayouts"));
 
 
 // This lets me create the routes of the whole application
-export const appRouter = createBrowserRouter([
+export const appRouter = createHashRouter([
     // Main or public routes (customer facing)
     {
         path: '/',
