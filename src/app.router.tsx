@@ -1,4 +1,4 @@
-import { createBrowserRouter, createHashRouter, Navigate } from "react-router";
+import { createHashRouter, Navigate } from "react-router";
 
 import { ShopLayout } from "./shop/layouts/ShopLayout";
 import { Homepage } from "./shop/pages/home/Homepage";
